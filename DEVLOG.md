@@ -20,3 +20,9 @@ What i learned:
 - symbol -> creates unique identifiers for **objects**.
 - typeof operator -> returns input datatype.
 
+## july 23 2026
+### JS
+What i learned:
+- JS conditionals (very similar to C).
+- JS functions.
+
