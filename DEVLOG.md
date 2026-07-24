@@ -23,6 +23,11 @@ What i learned:
 ## july 23 2026
 ### JS
 What i learned:
-- JS conditionals (very similar to C).
-- JS functions.
+- conditionals (very similar to C).
+- functions.
 
+## july 24 2026
+### JS
+What i learned:
+- function types (arrow functions and anonymous functions).
+- Call stack.
