@@ -31,3 +31,9 @@ What i learned:
 What i learned:
 - function types (arrow functions and anonymous functions).
 - Call stack.
+
+## july 27 2026
+### JS
+what i learned:
+- loops and arrays
+- Array methods (map, filter, reduce, etc.)
