@@ -37,3 +37,16 @@ What i learned:
 what i learned:
 - loops and arrays
 - Array methods (map, filter, reduce, etc.)
+
+## August 3, 2026
+
+### Accomplished
+- Installed React using Vite.
+- Set up the frontend project.
+- Successfully ran my first React application.
+- Connected the frontend to the ENGG-101 repository.
+
+### Learned
+- React apps are created using Vite.
+- `npm run dev` starts the development server.
+- The browser updates automatically when I save changes (HMR).
