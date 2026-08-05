@@ -39,7 +39,6 @@ what i learned:
 - Array methods (map, filter, reduce, etc.)
 
 ## August 3, 2026
-
 ### Accomplished
 - Installed React using Vite.
 - Set up the frontend project.
@@ -50,3 +49,18 @@ what i learned:
 - React apps are created using Vite.
 - `npm run dev` starts the development server.
 - The browser updates automatically when I save changes (HMR).
+
+# August 5, 2026
+## Accomplished
+- Created first React landing page.
+- Learned how React components work.
+- Broke the UI into reusable components.
+- Customized the hero section.
+- Added GitHub repo link to the footer.
+
+## Learned
+- React components (.jsx)
+- Import/export components
+- Tailwind utility classes
+- Responsive text using clamp()
+- Basic project structure in React
