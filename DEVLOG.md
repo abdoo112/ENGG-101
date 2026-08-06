@@ -64,3 +64,31 @@ what i learned:
 - Tailwind utility classes
 - Responsive text using clamp()
 - Basic project structure in React
+
+# August 6, 2026
+
+## Accomplished
+- Finished the ENGG-101 landing page (Hero).
+- Switched the color palette from green to amber.
+- Created the initial `Workspace.jsx` component.
+- Connected the landing page and workspace using React state (`useState`).
+- Learned how parent-child communication works in React using props and callback functions (`onEnter`).
+
+## Learned
+- React state with `useState`.
+- Conditional rendering using the ternary operator.
+- Passing functions as props.
+- Event handling with `onClick`.
+- Difference between components and application state.
+- Why React updates the UI without refreshing the page.
+
+## Next Session
+- Polish spacing, colors, typography and workspace as a whole.
+
+## Notes
+- Current architecture:
+  - `Hero.jsx` (Landing)
+  - `Workspace.jsx`
+  - `App.jsx` controls navigation using state.
+- Will migrate to React Router later once the app grows.
+- Backend/authentication will eventually handle navigation and persistence instead of local state.
