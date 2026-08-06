@@ -9,7 +9,8 @@ const Hero = ({
   systemLabel  = "ENGG-101 // OS v0.1.0",
   headline     = "ENGG-101",
   description  = "A study workspace for engineering students.",
-  primaryCta   = { label: "INITIALIZE SYSTEM", href: "#modules" },
+  primaryCta   = { label: "ENTER WORKSPACE"},
+  onEnter,
 }) => {
   return (
     /*
@@ -29,20 +30,20 @@ const Hero = ({
           Mimics an OS title bar / HUD header strip.
           w-full              — full width
           border-b            — 1px bottom rule
-          border-green-400/40      — visible green separator (40% opacity)
+          border-green-400/40      — visible ember separator (40% opacity)
           px-6 md:px-12       — responsive side padding
           py-3                — vertical padding (slim bar)
           flex items-center justify-between — label on left, dots on right   */}
-      <div className="w-full border-b border-green-400/40 px-6 md:px-12 py-3 flex items-center justify-between">
+      <div className="w-full border-b border-amber-300/40 px-6 md:px-12 py-3 flex items-center justify-between">
 
         {/* System label — left side */}
         <span
           /*
            * text-xs         — 12px; small utility text
            * tracking-[0.2em] — wide letter-spacing to feel like a system readout
-            * text-green-400/60 — muted green; not as bright as the top bar border
+            * text-amber-400/60 — muted amber; not as bright as the top bar border
            */
-          className="text-xs tracking-[0.2em] text-green-400/60"
+          className="text-xs tracking-[0.2em] text-amber-300/60"
         >
           {systemLabel}
         </span>
@@ -72,13 +73,9 @@ const Hero = ({
            *
            * Gradient treatment:
            * bg-gradient-to-br — diagonal gradient (top-left → bottom-right)
-           * from-white        — starts pure white
-           * via-cyan-100/90   — passes through near-white cyan in the middle
-           * to-cyan-400/70    — ends at a muted cyan (the terminal-screen accent)
-           * bg-clip-text      — clips the background to the text shape
            * text-transparent  — makes the text fill transparent so gradient shows
            */
-          className="text-[clamp(4rem,14vw,10rem)] font-black tracking-[0.3em] leading-none mb-10 text-green-500"
+          className="text-[clamp(4rem,14vw,10rem)] font-black tracking-[0.3em] leading-none mb-10 text-amber-300"
         >
           {headline}
         </h1>
@@ -95,7 +92,7 @@ const Hero = ({
            *   — a "glow line" that fades in and out at the edges; avoids hard stops
            * mb-10             — 40px gap after the rule
            */
-          className="w-24 h-px bg-gradient-to-r from-transparent via-green-500 to-transparent mb-10 animate-pulse"
+          className="w-24 h-px bg-gradient-to-r from-transparent via-amber-300 to-transparent mb-10 animate-pulse"
         />
 
         {/* ── DESCRIPTION ─────────────────────────────────────────────── */}
@@ -124,8 +121,8 @@ const Hero = ({
           className="flex flex-col sm:flex-row items-center gap-4"
         >
           {/* PRIMARY CTA */}
-          <a
-            href={primaryCta.href}
+          <button
+            onClick={onEnter}
             /*
              * group            — registers this element as a hover group;
              *                    lets children use group-hover: variants
@@ -137,8 +134,8 @@ const Hero = ({
              * tracking-[0.2em] — wide caps feel
              * font-semibold    — slightly heavier than default
              * text-[#000]   — matches page background; text "cut out" of button
-             * bg-cyan-400      — solid cyan fill; the only saturated element on the page
-             * border border-cyan-400
+             * bg-amber-300      — solid amber fill; the only saturated element on the page
+             * border border-amber-300
              *                  — border matches fill; creates a contained block
              * hover:bg-cyan-300 hover:border-cyan-300
              *                  — slightly lighter on hover; crisp, not flashy
@@ -146,7 +143,7 @@ const Hero = ({
              *                  — smooth 200ms colour swap
              * overflow-hidden  — clips the shimmer span that slides across
              */
-            className="group relative inline-flex items-center gap-2 px-7 py-3 text-xs tracking-[0.2em] font-semibold text-[#000] bg-green-500 border border-green-500 hover:bg-green-500 hover:border-green-500 transition-colors duration-200 overflow-hidden"
+            className="group relative inline-flex items-center gap-2 px-7 py-3 text-xs tracking-[0.2em] font-semibold text-[#000] bg-amber-300 border border-amber-300 hover:bg-amber-300 hover:border-amber-300 transition-colors duration-200 overflow-hidden"
           >
             {/*
              * Shimmer overlay:
@@ -161,7 +158,7 @@ const Hero = ({
              */}
             <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-black/20 to-transparent transition-transform duration-500 pointer-events-none" />
             {primaryCta.label}
-          </a>
+          </button>
           
         </div>
 
@@ -169,14 +166,14 @@ const Hero = ({
 
       {/* ── BOTTOM SYSTEM BAR ─────────────────────────────────────────────
           Mirrors the top bar. Anchors the section visually.                 */}
-      <div className="w-full border-t border-green-400/40 px-6 md:px-12 py-3 flex justify-start items-center gap-4">
+      <div className="w-full border-t border-amber-300/40 px-6 md:px-12 py-3 flex justify-start items-center gap-4">
   <a
     href="https://github.com/abdoo112/ENGG-101"
     target="_blank"
     rel="noopener noreferrer"
     className="
-      text-green-500/70
-      hover:text-green-300
+      text-amber-300/70
+      hover:text-amber-300
       transition-all
       duration-300
       hover:scale-110
