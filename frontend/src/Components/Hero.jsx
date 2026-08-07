@@ -43,7 +43,7 @@ const Hero = ({
            * tracking-[0.2em] — wide letter-spacing to feel like a system readout
             * text-amber-400/60 — muted amber; not as bright as the top bar border
            */
-          className="text-xs tracking-[0.2em] text-amber-300/60"
+          className="text-xs tracking-[0.2em] text-white/60"
         >
           {systemLabel}
         </span>
@@ -143,20 +143,20 @@ const Hero = ({
              *                  — smooth 200ms colour swap
              * overflow-hidden  — clips the shimmer span that slides across
              */
-            className="group relative inline-flex items-center gap-2 px-7 py-3 text-xs tracking-[0.2em] font-semibold text-[#000] bg-amber-300 border border-amber-300 hover:bg-amber-300 hover:border-amber-300 transition-colors duration-200 overflow-hidden"
+            className="group relative inline-flex items-center gap-2 px-7 py-3 text-xs tracking-[0.2em] font-semibold text-[#000] bg-white/80 border-white/80 hover:bg-amber-300 hover:border-amber-300 transition-colors duration-200 overflow-hidden"
           >
             {/*
              * Shimmer overlay:
              * absolute inset-0         — stretches to fill the button
              * -translate-x-full        — starts fully off-screen left
              * group-hover:translate-x-full — slides right across on hover
-             * bg-gradient-to-r from-transparent via-black/20 to-transparent
+             * bg-gradient-to-r from-transparent via-amber-300/20 to-transparent
              *                          — a thin bright band
              * transition-transform duration-500
              *                          — slower than the colour; reads as a sweep
              * pointer-events-none      — never blocks clicks
              */}
-            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-black/20 to-transparent transition-transform duration-500 pointer-events-none" />
+            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-amber-300/20 to-transparent transition-transform duration-500 pointer-events-none" />
             {primaryCta.label}
           </button>
           
@@ -172,7 +172,7 @@ const Hero = ({
     target="_blank"
     rel="noopener noreferrer"
     className="
-      text-amber-300/70
+      text-white/60
       hover:text-amber-300
       transition-all
       duration-300

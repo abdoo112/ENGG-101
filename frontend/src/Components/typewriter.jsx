@@ -78,20 +78,6 @@ export default function Typewriter({ text = "", speed = 40, className = "" }) {
     <span className={className}>
       {/* The text typed so far */}
       {displayedText}
-
-      {/*
-        Blinking terminal cursor.
-        - "inline-block" + fixed width/height lets us make it thick
-          like a real terminal block cursor instead of a thin "|".
-        - "animate-pulse" (built into Tailwind) makes it fade in/out
-          continuously, giving the blinking effect.
-        - This cursor keeps blinking forever, even after typing is
-          done, because it isn't tied to the typing state at all.
-      */}
-      <span
-        className="inline-block w-[0.5em] h-[1em] align-middle bg-current animate-pulse ml-0.5"
-        aria-hidden="true"
-      />
     </span>
   );
 }
