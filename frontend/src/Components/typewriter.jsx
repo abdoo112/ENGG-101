@@ -12,11 +12,11 @@ import React, { useState, useEffect } from "react";
  *  - speed     (number)  Milliseconds between each character. Default: 40.
  *  - className (string)  Optional extra Tailwind/CSS classes for the text.
  */
-export default function Typewriter({ text = "", speed = 40, className = "" }) {
+export default function Typewriter({ text = "", speed = 40, className = "", onComplete = () => {}, }) {
   // ---------------------------------------------------------------
   // STATE
   // ---------------------------------------------------------------
-
+  const [finished, setFinished] = useState(false);
   // `displayedText` holds the portion of `text` we've "typed" so far.
   // It starts empty and grows one character at a time.
   const [displayedText, setDisplayedText] = useState("");
@@ -37,6 +37,10 @@ export default function Typewriter({ text = "", speed = 40, className = "" }) {
     // If we've already typed the whole string, stop here.
     // (This is what makes the animation "stop once fully typed".)
     if (currentIndex >= text.length) {
+      if (!finished) {
+        setFinished(true);
+        onComplete();
+      }
       return;
     }
 
@@ -67,8 +71,9 @@ export default function Typewriter({ text = "", speed = 40, className = "" }) {
   // resume from the wrong index. This effect watches `text` and
   // restarts the animation whenever it changes.
   useEffect(() => {
-    setDisplayedText("");
-    setCurrentIndex(0);
+  setDisplayedText("");
+  setCurrentIndex(0);
+  setFinished(false);
   }, [text]);
 
   // ---------------------------------------------------------------

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Typewriter from "./Typewriter";
+import Typewriter from "./typewriter";
+import DailyQuote from "./quote";
 /**
  * Workspace.jsx
  * ENGG-101 — Workspace page
@@ -19,6 +20,7 @@ const NAV_ITEMS = [
 
 export default function Workspace() {
   const [activeTool, setActiveTool] = useState(null);
+  const [showQuote, setShowQuote] = useState(false);
 
   return (
     <div className="min-h-screen bg-black text-white/60 font-mono flex flex-col">
@@ -102,15 +104,12 @@ export default function Workspace() {
               className="text-white/60 text-4xl font-bold"
               text="Welcome back, Mohammed."
               speed={40}
+              onComplete={() => setShowQuote(true)}
             />
 
             {/* Motivational quote placeholder */}
-            <p className="mt-3 text-sm text-white/60 italic">
-              {/* TODO: rotate quotes here */}
-              "placeholder"
-            </p>
+            {showQuote && <DailyQuote />}
           </section>
-
           {/* ---------- Empty state ---------- */}
           <section className="flex-1 flex items-center justify-center px-6">
             {activeTool === null ? (
