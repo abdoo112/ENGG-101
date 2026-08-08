@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Typewriter from "./typewriter";
 import DailyQuote from "./quote";
+import WelcomeBanner from "./banner";
+import AIChat from "./AIChat";
 /**
  * Workspace.jsx
  * ENGG-101 — Workspace page
@@ -18,9 +20,49 @@ const NAV_ITEMS = [
   { id: "settings", label: "Settings" },
 ];
 
+const TOOL_CONTENT = {
+  chat: {
+    title: "AI Assistant",
+    description: "Ask anything about your engineering modules.",
+  },
+  documents: {
+    title: "Uploaded Documents",
+    description: "Manage lecture slides, notes and PDFs.",
+  },
+  quizzes: {
+    title: "Quiz Workspace",
+    description: "Test your understanding.",
+  },
+  flashcards: {
+    title: "Flashcards",
+    description: "Review concepts efficiently.",
+  },
+  notes: {
+    title: "Notes",
+    description: "Capture important ideas.",
+  },
+  settings: {
+    title: "Settings",
+    description: "Configure your workspace.",
+  },
+};
+
 export default function Workspace() {
   const [activeTool, setActiveTool] = useState(null);
   const [showQuote, setShowQuote] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [isAssistantTyping, setIsAssistantTyping] = useState(false);
+
+  // Placeholder handler — replace the inside of this with your real
+  // LLM API call later. UI never needs to change.
+  const handleSendMessage = (text) => {
+    setMessages((prev) => [
+      ...prev,
+      { id: crypto.randomUUID(), role: "user", content: text },
+    ]);
+  // TODO: call your LLM API here, then append the assistant's
+  // response with setMessages(...) and toggle isAssistantTyping.
+};
 
   return (
     <div className="min-h-screen bg-black text-white/60 font-mono flex flex-col">
@@ -99,33 +141,41 @@ export default function Workspace() {
         <main className="flex-1 flex flex-col">
           {/* ---------- Welcome area ---------- */}
           <section className="border-b border-amber-300/40 px-6 sm:px-10 py-8">
-            {/* Typing animation placeholder */}
-            <Typewriter
-              className="text-white/60 text-4xl font-bold"
-              text="Welcome back, Mohammed."
-              speed={40}
-              onComplete={() => setShowQuote(true)}
+            <WelcomeBanner
+              title={activeTool ? TOOL_CONTENT[activeTool].title : "Welcome back, Mohammed."}
+              description={activeTool ? TOOL_CONTENT[activeTool].description : undefined}
+              showQuote={activeTool === null}
             />
-
-            {/* Motivational quote placeholder */}
-            {showQuote && <DailyQuote />}
           </section>
           {/* ---------- Empty state ---------- */}
-          <section className="flex-1 flex items-center justify-center px-6">
-            {activeTool === null ? (
-              <div className="text-center px-8 py-10 max-w-md">
-                <p className="text-white/60 text-sm">
-                  <span className="text-white/60">&gt;</span> Select a tool
-                  from the sidebar to begin.
-                </p>
+          
+          {/* ---------- Main content: chat / empty state / other tools ---------- */}
+          <section className="flex-1 flex flex-col min-h-0 px-6">
+            {activeTool === "chat" ? (
+            <AIChat
+              messages={messages}
+              onSendMessage={handleSendMessage}s
+              onUploadClick={() => {/* wire to file input later */}}
+              isAssistantTyping={isAssistantTyping}
+            />
+            ) : activeTool === null ? (
+              <div className="flex-1 flex items-center justify-center">
+                <div className="text-center px-8 py-10 max-w-md">
+                  <p className="text-white/60 text-sm">
+                    <span className="text-white/60">&gt;</span> Select a tool
+                      from the sidebar to begin.
+                  </p>
+                </div>
               </div>
             ) : (
-              <div className="text-center px-8 py-10 max-w-md">
-                <p className="text-white/60 text-sm">
-                  <span className="text-white/60">&gt;</span>{" "}
-                  {NAV_ITEMS.find((n) => n.id === activeTool)?.label}{" "}
-                  selected.
-                </p>
+              <div className="flex-1 flex items-center justify-center">
+                <div className="text-center px-8 py-10 max-w-md">
+                  <p className="text-white/60 text-sm">
+                    <span className="text-white/60">&gt;</span>{" "}
+                    {NAV_ITEMS.find((n) => n.id === activeTool)?.label}{" "}
+                      selected.
+                  </p>
+                </div>
               </div>
             )}
           </section>
