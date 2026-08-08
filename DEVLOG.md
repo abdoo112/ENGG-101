@@ -92,3 +92,52 @@ what i learned:
   - `App.jsx` controls navigation using state.
 - Will migrate to React Router later once the app grows.
 - Backend/authentication will eventually handle navigation and persistence instead of local state.
+
+# August 7, 2026
+
+## Accomplished
+
+- Continued developing the ENGG-101 workspace UI.
+- Implemented the reusable `Typewriter.jsx` component.
+- Added the typing animation to the workspace welcome message.
+- Added the `quote.jsx` component.
+- Integrated the daily quote into `Workspace.jsx`.
+- Added `onComplete` handling to coordinate the quote/author typing sequence.
+- Completed the initial AI Chat interface.
+- Established the sidebar structure for:
+  - AI Chat
+  - Uploaded Documents
+  - Quizzes
+  - Flashcards
+  - Notes
+  - Settings
+- Confirmed that sidebar selections will dynamically display their respective components in the main workspace area.
+
+## Learned
+
+- Creating reusable React components.
+- Passing props such as `text`, `speed`, and `className`.
+- Using `useEffect` for timed UI behavior.
+- Using `Math.random()` to select random data.
+- Coordinating multiple components through callback props.
+- Separating UI components based on responsibility.
+- Using conditional rendering to switch workspace content.
+
+## Next Session
+
+- Review the frontend files one by one and understand exactly how everything currently works.
+- Clean up/refactor anything that needs improvement.
+- Make sure the frontend architecture is solid before starting backend development.
+- Begin planning the backend architecture and how it will connect to the existing frontend.
+
+## Notes
+
+- The major UI structure is now essentially complete.
+- Remaining UI components are mostly placeholders for backend-driven functionality:
+  - Uploaded Documents
+  - Flashcards
+  - Notes
+  - Quizzes
+  - Settings
+- AI Chat UI is complete; functionality will be connected during backend development.
+- The next major phase is understanding the existing codebase and beginning backend integration.
