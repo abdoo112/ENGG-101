@@ -3,6 +3,11 @@ import Typewriter from "./typewriter";
 import DailyQuote from "./quote";
 import WelcomeBanner from "./banner";
 import AIChat from "./AIChat";
+import Documents from "./documents";
+import Quizzes from "./quizzes";
+import Flashcards from "./Flashcards";
+import Notes from "./notes";
+import Settings from "./settings";
 /**
  * Workspace.jsx
  * ENGG-101 — Workspace page
@@ -158,22 +163,33 @@ export default function Workspace() {
               onUploadClick={() => {/* wire to file input later */}}
               isAssistantTyping={isAssistantTyping}
             />
-            ) : activeTool === null ? (
-              <div className="flex-1 flex items-center justify-center">
-                <div className="text-center px-8 py-10 max-w-md">
-                  <p className="text-white/60 text-sm">
-                    <span className="text-white/60">&gt;</span> Select a tool
-                      from the sidebar to begin.
-                  </p>
-                </div>
-              </div>
+            ) :activeTool === "documents" ? (
+            <Documents
+            // documents={realDocumentsFromState}   // ← swap in later
+              onUploadClick={() => {/* open file picker later */}}
+            />
+            ) : activeTool === "quizzes" ? (
+            <Quizzes
+            // quizzes={realQuizzesFromState}   // ← swap in later
+              onStartQuiz={(quizId) => {/* wire up later */}}
+            />
+            ) : activeTool === "flashcards" ? (
+            <Flashcards
+            // sets={realFlashcardSetsFromState}   // ← swap in later
+              onStudy={(setId) => {/* open study view later */}}
+            />
+            ) : activeTool === "notes" ? (
+            <Notes
+            // notes={realNotesFromState}   // ← swap in later
+            />
+            ) : activeTool === "settings" ? (
+            <Settings />
             ) : (
               <div className="flex-1 flex items-center justify-center">
                 <div className="text-center px-8 py-10 max-w-md">
                   <p className="text-white/60 text-sm">
                     <span className="text-white/60">&gt;</span>{" "}
-                    {NAV_ITEMS.find((n) => n.id === activeTool)?.label}{" "}
-                      selected.
+                      Select a tool from the sidebar to begin.
                   </p>
                 </div>
               </div>

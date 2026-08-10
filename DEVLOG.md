@@ -141,3 +141,41 @@ what i learned:
   - Settings
 - AI Chat UI is complete; functionality will be connected during backend development.
 - The next major phase is understanding the existing codebase and beginning backend integration.
+
+# August 10, 2026
+
+## Accomplished
+
+- Completed the remaining ENGG-101 workspace UI states.
+- Added the frontend UI for:
+  - Uploaded Documents
+  - Quizzes
+  - Flashcards
+  - Notes
+  - Settings
+- Kept the components structured around data-driven rendering so they can be connected to backend data later.
+- Added the new components to the existing `Workspace.jsx` state-based navigation.
+- Connected the different sidebar states to their corresponding components.
+- Added frontend placeholders/callbacks for functionality that will later be handled by the backend, such as:
+  - Document uploads
+  - Starting quizzes
+  - Studying flashcard sets
+  - Loading documents, quizzes, flashcards, and notes from backend data
+- Kept the existing ENGG-101 black/amber visual style consistent across the new components.
+- Finished the current frontend UI phase.
+
+## Learned
+
+- How to structure larger React interfaces into separate reusable components.
+- How to render different components based on application state.
+- How to design components around data that will eventually come from a backend.
+- Why separating UI components from backend/data logic makes future integration easier.
+- How callback props can act as placeholders for functionality that will be implemented later.
+
+## Next Session
+
+- Begin a full frontend code review.
+- Go through the project files one by one and understand exactly what each component does.
+- Review the React state, props, callbacks, effects, component relationships, and data flow.
+- Identify anything that should be cleaned up or changed before starting the backend.
+- Map out exactly what data the backend will need to provide to each frontend component.
