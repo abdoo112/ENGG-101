@@ -3,7 +3,7 @@ import Typewriter from "./typewriter";
 import DailyQuote from "./quote";
 
 /**
- * WelcomeBanner.jsx
+ * banner.jsx
  *
  * Reusable header for the Workspace main content area.
  * Renders a typed title + typed description, and optionally

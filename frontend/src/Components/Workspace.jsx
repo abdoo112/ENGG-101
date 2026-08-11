@@ -5,7 +5,6 @@ import WelcomeBanner from "./banner";
 import AIChat from "./AIChat";
 import Documents from "./documents";
 import Quizzes from "./quizzes";
-import Flashcards from "./Flashcards";
 import Notes from "./notes";
 import Settings from "./settings";
 /**
@@ -20,7 +19,6 @@ const NAV_ITEMS = [
   { id: "chat", label: "AI Chat" },
   { id: "documents", label: "Uploaded Documents" },
   { id: "quizzes", label: "Quizzes" },
-  { id: "flashcards", label: "Flashcards" },
   { id: "notes", label: "Notes" },
   { id: "settings", label: "Settings" },
 ];
@@ -37,10 +35,6 @@ const TOOL_CONTENT = {
   quizzes: {
     title: "Quiz Workspace",
     description: "Test your understanding.",
-  },
-  flashcards: {
-    title: "Flashcards",
-    description: "Review concepts efficiently.",
   },
   notes: {
     title: "Notes",
@@ -92,6 +86,7 @@ export default function Workspace() {
           <button
             type="button"
             aria-label="Settings"
+            onClick={() => setActiveTool("settings")}
             className="w-8 h-8 flex items-center justify-center text-white/60 hover:text-amber-400 transition-colors"
           >
             <svg
@@ -159,7 +154,7 @@ export default function Workspace() {
             {activeTool === "chat" ? (
             <AIChat
               messages={messages}
-              onSendMessage={handleSendMessage}s
+              onSendMessage={handleSendMessage}
               onUploadClick={() => {/* wire to file input later */}}
               isAssistantTyping={isAssistantTyping}
             />
@@ -172,11 +167,6 @@ export default function Workspace() {
             <Quizzes
             // quizzes={realQuizzesFromState}   // ← swap in later
               onStartQuiz={(quizId) => {/* wire up later */}}
-            />
-            ) : activeTool === "flashcards" ? (
-            <Flashcards
-            // sets={realFlashcardSetsFromState}   // ← swap in later
-              onStudy={(setId) => {/* open study view later */}}
             />
             ) : activeTool === "notes" ? (
             <Notes

@@ -179,3 +179,47 @@ what i learned:
 - Review the React state, props, callbacks, effects, component relationships, and data flow.
 - Identify anything that should be cleaned up or changed before starting the backend.
 - Map out exactly what data the backend will need to provide to each frontend component.
+
+# August 11, 2026
+
+## Accomplished
+
+- Reviewed all the frontend components in the codebase.
+- Removed unused `Hero.jsx` and the unused `Flashcard.jsx` component.
+
+## Learned
+
+- How React list rendering works with `.map()`.
+- Difference between a React `key` and a normal component prop.
+- How objects are passed between parent and child components.
+- How selection state is propagated between components.
+- How conditional Tailwind classes work with the ternary operator.
+- How frontend placeholder data is structured so it can later be replaced with backend/API data.
+- How the current frontend architecture is designed to accept real backend data without requiring the UI components to be rebuilt.
+
+## Notes
+
+### Backend Integration
+
+The current UI components are essentially prepared to receive real data later.
+
+Expected data structures include:
+
+- `messages` → AI chat messages
+- `documents` → uploaded documents
+- `notes` → generated/stored notes
+- `quizzes` → generated quizzes
+
+The backend should eventually provide objects with the fields the frontend already expects, allowing the UI to remain mostly unchanged.
+
+### React Review Notes
+
+- `useState()` stores changing component state.
+- `useEffect()` handles side effects after rendering.
+- `useEffect(..., [])` runs once when a component mounts.
+- `.map()` generates UI from arrays.
+- `key={item.id}` gives React a stable identity for list items.
+- `item={item}` passes the entire object as a prop.
+- `onSelect(item.id)` allows a child component to notify the parent about a selection.
+- Conditional rendering/classes can use ternaries.
+- Callback props allow parent-controlled state to be triggered from child components.
