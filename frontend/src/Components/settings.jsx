@@ -21,32 +21,6 @@ function SettingsRow({ label, description, children }) {
   );
 }
 
-/* =====================================================================
- * Toggle
- * A minimal on/off switch. Local, controlled — parent owns the
- * boolean state and the change handler.
- * =================================================================== */
-function Toggle({ checked, onChange }) {
-  return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={checked}
-      onClick={() => onChange(!checked)}
-      className={[
-        "w-10 h-5 rounded-full relative transition-colors",
-        checked ? "bg-amber-300" : "bg-white/10",
-      ].join(" ")}
-    >
-      <span
-        className={[
-          "absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-black transition-transform",
-          checked ? "translate-x-5" : "translate-x-0",
-        ].join(" ")}
-      />
-    </button>
-  );
-}
 
 /* =====================================================================
  * Settings
