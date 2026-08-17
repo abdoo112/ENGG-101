@@ -13,8 +13,8 @@ import Typewriter from "./typewriter";
 // Add/replace quotes here later — just keep the { quote, author } shape.
 const QUOTES = [
   {
-    quote: "lock in lil bro",
-    author: "lil nigga",
+    quote: "lock in",
+    author: "you",
   },
 ];
 
