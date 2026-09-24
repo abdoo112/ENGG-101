@@ -9,8 +9,6 @@ The goal is to create an AI tutor that prioritizes learning over simply generati
 
 ## Vision
 
-ENGG-101 is designed to be an all-purpose engineering mentor
-
 The assistant should:
 
 * Explain concepts in a clear and structured way.
@@ -43,7 +41,7 @@ The assistant should:
 
 * React
 * Vite
-* TypeScript
+* JavaScript
 * Tailwind CSS
 
 ### Backend
@@ -73,12 +71,31 @@ This project is being developed as a software engineering portfolio project with
 * Backend API development
 * Modern frontend development
 * Docker and containerization
-* Linux-based development workflows
 * Software architecture and system design
 
 
 ## Project Status
 
-**Currently in the planning and architecture phase.**
+**Frontend UI is substantially built. Backend chat integration is functional.**
 
-Development will be documented from the initial design through to a complete working application.
+The AI Chat tool is now connected to a local FastAPI backend, which forwards messages to a locally-running Ollama model and returns real responses. Documents, quizzes, and notes tools are currently UI-complete but still running on placeholder data, pending backend integration.
+
+Development is documented from initial design through to a complete working application (see `DEVLOG.md`).
+
+## Running Locally
+
+This project isn't deployed publicly since the AI chat depends on a local Ollama model rather than a hosted API.
+
+### Backend setup
+
+```bash
+uvicorn main:app --reload --port 8000
+```
+
+### Frontend setup
+
+```bash
+npm run dev
+```
+
+Open the app in your browser, select **AI Chat** from the sidebar, and send a message — it will be forwarded to your locally-running model and the response will appear in the chat.

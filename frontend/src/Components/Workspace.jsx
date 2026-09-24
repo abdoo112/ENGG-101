@@ -52,16 +52,54 @@ export default function Workspace() {
   const [messages, setMessages] = useState([]);
   const [isAssistantTyping, setIsAssistantTyping] = useState(false);
 
-  // Placeholder handler — replace the inside of this with your real
-  // LLM API call later. UI never needs to change.
-  const handleSendMessage = (text) => {
-    setMessages((prev) => [
-      ...prev,
-      { id: crypto.randomUUID(), role: "user", content: text },
-    ]);
-  // TODO: call your LLM API here, then append the assistant's
-  // response with setMessages(...) and toggle isAssistantTyping.
-};
+    // Sends the user's message, then calls the backend for a real
+    // assistant reply. isAssistantTyping drives the TypingIndicator
+    // inside AIChat while we wait.
+    const handleSendMessage = async (text) => {
+      // 1. Append the user's own message immediately — no need to wait
+      //    on the network to show what they just typed.
+      setMessages((prev) => [
+        ...prev,
+        { id: crypto.randomUUID(), role: "user", content: text },
+      ]);
+
+      // 2. Show the typing indicator while we wait on the backend.
+      setIsAssistantTyping(true);
+
+      try {
+        const response = await fetch("http://localhost:8000/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Backend responded with ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // 3. Append the assistant's real reply.
+        setMessages((prev) => [
+          ...prev,
+          { id: crypto.randomUUID(), role: "assistant", content: data.reply },
+        ]);
+      } catch (err) {
+        // Honest failure state — no fake/placeholder assistant reply.
+        console.error("Chat request failed:", err);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: crypto.randomUUID(),
+            role: "assistant",
+            content: "Sorry, I couldn't reach the server. Please try again.",
+          },
+        ]);
+      } finally {
+        // 4. Hide the typing indicator whether it succeeded or failed.
+        setIsAssistantTyping(false);
+      }
+    };
 
   return (
     <div className="min-h-screen bg-black text-white/60 font-mono flex flex-col">

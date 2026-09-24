@@ -223,3 +223,33 @@ The backend should eventually provide objects with the fields the frontend alrea
 - `onSelect(item.id)` allows a child component to notify the parent about a selection.
 - Conditional rendering/classes can use ternaries.
 - Callback props allow parent-controlled state to be triggered from child components.
+
+# September 24, 2026
+
+## Accomplished
+
+- Built the FastAPI backend (`backend/main.py`) with a single `/chat` endpoint.
+- Installed Python, pip, FastAPI, uvicorn, and httpx.
+- Installed Ollama and pulled a local model.
+- Wired `handleSendMessage` in `Workspace.jsx` to call the backend via `fetch` instead of only appending the user's own message.
+- Added `isAssistantTyping` state handling around the request so the existing `TypingIndicator` reflects real loading time.
+- Added a real error-fallback message if the backend request fails, instead of leaving the UI silently broken.
+- Confirmed the full pipeline works end-to-end: message sent from the chat UI → FastAPI → Ollama → real model reply displayed back in the chat.
+
+## Learned
+
+- The difference between FastAPI (defines the API) and uvicorn (actually runs/serves it).
+- CORS middleware is required for the browser to be allowed to call a different local port.
+- `ollama cp` creates a lightweight alias to a model without duplicating it on disk.
+
+## Next Session
+
+- Improve prompting — qwen2.5-coder is a code-focused model, so general chat replies feel weaker than expected; consider a system prompt tailored to tutoring/explanations.
+- Wire real document upload, storage, and retrieval to replace `MOCK_DOCUMENTS`.
+- Start planning how uploaded documents feed into notes/quiz generation.
+- Consider giving the chat model context from uploaded notes (RAG-style) rather than just the raw user message.
+
+## Notes
+
+- Architecture stays frontend-first, backend-decoupled: `Workspace.jsx` owns all chat state and the API call, so swapping the backend's internals later (e.g. different model, hosted API) won't require frontend changes.
+- Deployment note: Vercel cannot host Ollama (no GPU, no persistent process) — for this project, a demo video is being used instead of a live public deployment.
