@@ -253,3 +253,30 @@ The backend should eventually provide objects with the fields the frontend alrea
 
 - Architecture stays frontend-first, backend-decoupled: `Workspace.jsx` owns all chat state and the API call, so swapping the backend's internals later (e.g. different model, hosted API) won't require frontend changes.
 - Deployment note: Vercel cannot host Ollama (no GPU, no persistent process) — for this project, a demo video is being used instead of a live public deployment.
+
+# September 27, 2026
+
+## Accomplished
+
+- Fixed a layout bug where the entire page (including the sidebar) became scrollable as chat messages accumulated, locked the outer container to viewport height and added `min-h-0` down the flex chain so only inner content areas scroll independently.
+- Added document upload support to the backend: `POST /documents` (saves the file to disk, records metadata) and `GET /documents` (returns the list) in `main.py`.
+- Installed `python-multipart`, required by FastAPI to parse file upload requests.
+- Wired `Documents.jsx` to open a real native file picker instead of a bare button click.
+- Wired `Workspace.jsx` to fetch real documents from the backend when the Documents tab opens, and to actually POST a picked file to the backend, updating the UI immediately on success.
+- Confirmed uploads and listing work end-to-end through both `/docs` (FastAPI's interactive test page) and the real frontend UI.
+
+## Learned
+
+- Flex children have an implicit minimum height based on their content, which silently overrides a fixed parent height (`h-screen`) unless `min-h-0` is explicitly set, this is why the scroll bug happened despite the outer container already being height-constrained.
+- `FormData` is the format the browser needs to send a file over `fetch`, matching what FastAPI's `UploadFile` expects on the other end.
+- Uploading a file and actually giving an AI access to its contents are two separate problems — right now the backend only stores raw bytes and metadata; the model has no access to what's actually inside the file.
+
+## Next Session
+
+- Extract text from uploaded documents (PDF via `pypdf`/`pdfplumber`, `.docx` via `python-docx`).
+- Feed extracted document text into the `/chat` prompt so the AI can actually answer questions about uploaded material.
+- Wire up the upload icon inside the AI Chat input bar (`AIChat.jsx`) — currently a no-op button — reusing the same upload logic built for the Documents tab.
+
+## Notes
+
+- Document storage is currently just an in-memory Python list (`documents_db`) plus files saved to a local `uploads/` folder — resets on every backend restart. A real database (SQLite, per the README's planned stack) will replace this once the feature set stabilizes.
