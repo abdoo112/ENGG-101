@@ -7,6 +7,7 @@ import Documents from "./documents";
 import Quizzes from "./quizzes";
 import Notes from "./notes";
 import Settings from "./settings";
+import { useEffect } from "react";
 /**
  * Workspace.jsx
  * ENGG-101 — Workspace page
@@ -51,6 +52,45 @@ export default function Workspace() {
   const [showQuote, setShowQuote] = useState(false);
   const [messages, setMessages] = useState([]);
   const [isAssistantTyping, setIsAssistantTyping] = useState(false);
+  const [documents, setDocuments] = useState([]);
+
+  // Fetch the real document list from the backend whenever the
+  // Documents tool is opened.
+  useEffect(() => {
+    if (activeTool !== "documents") return;
+
+    const fetchDocuments = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/documents");
+        if (!response.ok) throw new Error(`Backend responded with ${response.status}`);
+        const data = await response.json();
+        setDocuments(data);
+      } catch (err) {
+        console.error("Failed to fetch documents:", err);
+      }
+    };
+
+    fetchDocuments();
+  }, [activeTool]);
+
+  // Uploads a real file to the backend, then refreshes the document list
+  // so the newly uploaded file shows up immediately.
+  const handleUploadDocument = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("http://localhost:8000/documents", {
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok) throw new Error(`Backend responded with ${response.status}`);
+      const newDoc = await response.json();
+      setDocuments((prev) => [...prev, newDoc]);
+    } catch (err) {
+      console.error("Upload failed:", err);
+    }
+  };
 
     // Sends the user's message, then calls the backend for a real
     // assistant reply. isAssistantTyping drives the TypingIndicator
@@ -102,7 +142,7 @@ export default function Workspace() {
     };
 
   return (
-    <div className="min-h-screen bg-black text-white/60 font-mono flex flex-col">
+      <div className="h-screen bg-black text-white/60 font-mono flex flex-col overflow-hidden">
       {/* ============================== */}
       {/* TOP NAVIGATION BAR              */}
       {/* ============================== */}
@@ -145,7 +185,7 @@ export default function Workspace() {
       {/* ============================== */}
       {/* PAGE BODY (below fixed header)  */}
       {/* ============================== */}
-      <div className="flex flex-1 pt-14">
+      <div className="flex flex-1 pt-14 min-h-0">
         {/* ============================== */}
         {/* LEFT SIDEBAR — NAVIGATION       */}
         {/* ============================== */}
@@ -176,7 +216,7 @@ export default function Workspace() {
         {/* ============================== */}
         {/* MAIN CONTENT AREA               */}
         {/* ============================== */}
-        <main className="flex-1 flex flex-col">
+        <main className="flex-1 flex flex-col min-h-0">
           {/* ---------- Welcome area ---------- */}
           <section className="border-b border-amber-300/40 px-6 sm:px-10 py-8">
             <WelcomeBanner
@@ -198,8 +238,8 @@ export default function Workspace() {
             />
             ) :activeTool === "documents" ? (
             <Documents
-            // documents={realDocumentsFromState}   // ← swap in later
-              onUploadClick={() => {/* open file picker later */}}
+              documents={documents}
+              onUploadClick={handleUploadDocument}
             />
             ) : activeTool === "quizzes" ? (
             <Quizzes

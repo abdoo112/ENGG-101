@@ -51,6 +51,25 @@ export default function Documents({
   onUploadClick = () => {},
 }) {
   const hasDocuments = documents.length > 0;
+  const fileInputRef = React.useRef(null);
+
+  // Clicking the drop-zone button opens the browser's native file picker.
+  const handleAreaClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  // Fires once the user actually picks a file. We hand the raw File
+  // object up to the parent — Workspace.jsx decides what to do with it
+  // (i.e. upload it to the backend).
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      onUploadClick(file);
+    }
+    // Reset the input so selecting the same file twice in a row still
+    // fires onChange (browsers don't fire it if the value is unchanged).
+    e.target.value = "";
+  };
 
   return (
     <div className="flex-1 flex flex-col min-h-0 py-6">
@@ -59,9 +78,15 @@ export default function Documents({
           This is a placeholder drop zone / button. No drag-and-drop
           or file-input logic lives here — onUploadClick is where
           you'll eventually open a file picker or wire up drag-drop. */}
+            <input
+        ref={fileInputRef}
+        type="file"
+        onChange={handleFileChange}
+        className="hidden"
+      />
       <button
         type="button"
-        onClick={onUploadClick}
+        onClick={handleAreaClick}
         className="w-full border border-dashed border-amber-300/30 rounded-lg py-8 mb-6 flex flex-col items-center justify-center gap-2 text-white/40 hover:border-amber-300/60 hover:text-amber-300 transition-colors"
       >
         <svg
